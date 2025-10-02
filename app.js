@@ -11,7 +11,15 @@ app.use(express.json());
 
 const router = express.Router();
 
-//Handle GET / requests
+//Render stuff
+router.get("/", async (req, res) => {
+  try {
+    const songs = await Song.find({});
+    res.json(songs);
+  } catch (err) {
+    res.status(500).send("Error fetching songs");
+  }
+});
 
 //Get list of all songs in the database
 router.get("/songs", async (req,res) =>{
