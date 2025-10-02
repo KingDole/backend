@@ -42,4 +42,7 @@ router.post("/songs", async (req,res) => {
 
 //all requests the usually use an API start wih /api... so the url would be localhost:3000/api/songs
 app.use("/api", router)
+app.get("/", (req, res) => {
+  res.redirect("/api");
+});
 app.listen(3000)
