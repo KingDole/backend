@@ -12,9 +12,6 @@ app.use(express.json());
 const router = express.Router();
 
 //Handle GET / requests
-router.get('/', (req, res) => {
-  res.send('API is running');
-});
 
 //Get list of all songs in the database
 router.get("/songs", async (req,res) =>{
