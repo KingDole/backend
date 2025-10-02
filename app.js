@@ -1,18 +1,36 @@
-//setup... this is similar to when we use our default tags in html
-const express = require ("express");
-//we have to use cors in order to host a front end and backend on the same device
-var cors = require('cors');
-//activate or tell this app variable to be an express server
+const express = require("express");
+const Song = require("./models/song");
 
-const bodyParser = require('body-parser')
-const Song = require("./models/songs")
-const app = express()
-app.use(cors())
+const app = express();
 
-app.use(bodyParser.json())
-const router = express.Router()
+// Middleware that parses HTTP requests with JSON body
+app.use(express.json());
 
+const router = express.Router();
 
+//Get list of all songs in the database
+router.get("/songs", async (req,res) =>{
+    try {
+        const songs = await Song.find({})
+        res.json(songs)
+        console.log(songs)
+    }
+    catch (err) {
+        console.log(err)
+    }
+})
+
+router.post("/songs", async (req,res) => {
+    try {
+        const song = await new Song(req.body)
+        await song.save()
+        res.status(201).json(song)
+        console.log(song)
+    }
+    catch (err) {
+        res.status(400).send(err)
+    }
+})
 
 //all requests the usually use an API start wih /api... so the url would be localhost:3000/api/songs
 app.use("/api", router)
