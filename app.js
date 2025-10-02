@@ -12,7 +12,7 @@ app.use(express.json());
 const router = express.Router();
 
 //Handle GET / requests
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
   res.send('API is running');
 });
 
