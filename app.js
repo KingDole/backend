@@ -1,7 +1,9 @@
 const express = require("express");
 const Song = require("./models/song");
+var cors = require('cors');
 
 const app = express();
+app.use(cors());
 
 // Middleware that parses HTTP requests with JSON body
 app.use(express.json());
